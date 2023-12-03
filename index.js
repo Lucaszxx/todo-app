@@ -16,6 +16,32 @@ app.use(express.urlencoded({
 
 app.use(express.json())
 
+app.get('/', (req, res) => {
+    const sql = 'SELECT * FROM tarefas'
+    
+    conexao.query(sql, (erro, dados) => {
+        if(erro) {
+            return console.log(erro)
+        }
+
+        const tarefas = dados.map((dado) => {
+            return {
+                id: dado.id,
+                descricao: dado.descricao,
+                completa: dado.completa === 0 ? false : true
+            }
+        })
+
+        const tarefasAtivas = tarefas.filter((tarefa) => {
+            return tarefa.completa === false && tarefa
+        })
+        
+        const quantidadeTarefasAtivas = tarefasAtivas.length
+
+        res.render('home', { tarefas, quantidadeTarefasAtivas })
+    })
+})
+
 app.post('/completar', (req, res) => {
     const id = req.body.id
 
@@ -30,6 +56,23 @@ app.post('/completar', (req, res) => {
             return console.log(erro)
         }
 
+        res.redirect('/')
+    })
+})
+
+app.post('/descompletar', (req, res) => {
+    const id = req.body.id
+
+    const sql = `
+        UPDATE tarefas
+        SET completa = '0'
+        WHERE id = ${id}
+    `
+
+    conexao.query(sql, (erro) => {
+        if(erro) {
+            return console.log(erro)
+        }
         res.redirect('/')
     })
 })
@@ -49,25 +92,6 @@ app.post('/criar', (req, res) => {
         }
 
         res.redirect('/')
-    })
-})
-
-app.get('/', (req, res) => {
-    const sql = 'SELECT * FROM tarefas'
-    
-    conexao.query(sql, (erro, dados) => {
-        if(erro) {
-            return console.log(erro)
-        }
-
-        const tarefas = dados.map((dado) => {
-            return {
-                id: dado.id,
-                descricao: dado.descricao,
-                completa: dado.completa === 0 ? false : true
-            }
-        })
-        res.render('home', { tarefas })
     })
 })
 
