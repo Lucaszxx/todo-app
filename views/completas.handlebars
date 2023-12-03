@@ -4,7 +4,7 @@
         <div class="tarefa">
             <form action="">
                 <div>
-                    <input type="checkbox" id="tarefa-{{this.id}}" onchange="completarTarefa({{this.id}})">
+                    <input type="checkbox" id="tarefa-{{this.id}}" onchange="completarTarefa({{this.id}})" checked>
                     <label for="tarefa-{{this.id}}">{{this.descricao}}</label>
                 </div>
                 <button>
@@ -15,7 +15,7 @@
         {{/each}}
 
         <div class="informacoes">
-            <p>{{quantidadeTarefas}} tarefas ativas</p>
+            <p>{{quantidadeTarefas}} tarefas completas</p>
             <div class="botoes">
                 <a href="/">Todas</a>
                 <a href="/ativas">Ativas</a>
