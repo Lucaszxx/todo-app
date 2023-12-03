@@ -16,8 +16,8 @@ app.use(express.urlencoded({
 
 app.use(express.json())
 
-app.post('/criar', (requisicao, resposta) => {
-    const descricao = requisicao.body.descricao
+app.post('/criar', (req, res) => {
+    const descricao = req.body.descricao
     const completa = 0
 
     const sql = `
@@ -30,11 +30,26 @@ app.post('/criar', (requisicao, resposta) => {
             return console.log(erro)
         }
 
-        resposta.redirect('/')
+        res.redirect('/')
     })
 })
 
 app.get('/', (req, res) => {
+    const sql = 'SELECT * FROM tarefas'
+    
+    conexao.query(sql, (erro, dados) => {
+        if(erro) {
+            return console.log(erro)
+        }
+
+        const tarefas = dados.map((dado) => {
+            return {
+                id: dado.id,
+                descricao: dado.descricao,
+                completa: dado.completa === 0 ? false : true
+            }
+        })
+    })
     res.render('home')
 })
 
