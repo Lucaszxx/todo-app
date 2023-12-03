@@ -3,7 +3,6 @@
         {{#each tarefas}}
         <div class="tarefa">
             <form action="">
-                {{#if this.completa}}
                 <div class="completa">
                     <input type="checkbox" id="tarefa-{{this.id}}" checked onchange="descompletarTarefa({{this.id}})">
                     <label for="tarefa-{{this.id}}">{{this.descricao}}</label>
@@ -13,7 +12,6 @@
                     <input type="checkbox" id="tarefa-{{this.id}}" onchange="completarTarefa({{this.id}})">
                     <label for="tarefa-{{this.id}}">{{this.descricao}}</label>
                 </div>
-                {{/if}}
                 <button>
                     <img src="/imagens/x-icon.png" alt="ícone de x para excluir uma tarefa">
                 </button>
@@ -24,8 +22,8 @@
         <div class="informacoes">
             <p>{{quantidadeTarefasAtivas}} tarefas ativas</p>
             <div class="botoes">
-                <a href="/" class="active">Todas</a>
-                <a href="/ativas">Ativas</a>
+                <a href="/">Todas</a>
+                <a href="/ativas" class="active">Ativas</a>
                 <a href="/completas">Completas</a>
             </div>
             <a href="">Limpar tarefas</a>
@@ -33,8 +31,8 @@
     </section>
 
     <section class="botoes">
-        <a href="/" class="active">Todas</a>
-        <a href="/ativas">Ativas</a>
+        <a href="/">Todas</a>
+        <a href="/ativas" class="active">Ativas</a>
         <a href="/completas">Completas</a>
     </section>
 </main>

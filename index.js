@@ -14,6 +14,10 @@ app.use(express.urlencoded({
     extended: true
 }))
 
+app.get("/ativas", (req, res) => {
+    
+})
+
 app.use(express.json())
 
 app.get('/', (req, res) => {
